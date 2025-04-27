@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Parent from "./components/Parent";
+import Child from "./components/Child";
+import { GlobalContextProvider, useSetGlobalContext } from "./store";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const globalContext = useSetGlobalContext();
+
+  console.log("App globalContext:", globalContext);
 
   return (
-    <>
+    <GlobalContextProvider value={globalContext}>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <header className="p-4 bg-blue-300">
+          <h2 className="text-center text-3xl">Zustand & React js</h2>
+        </header>
+        <main className="p-4 bg-gray-100">
+          <Parent />
+          <Child />
+        </main>
+        <footer className="p-4 bg-blue-300">
+          <h2 className="text-center text-3xl">Footer</h2>
+        </footer>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </GlobalContextProvider>
+  );
+};
 
-export default App
+export default App;
